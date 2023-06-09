@@ -10,16 +10,23 @@
 <body>
     <header>
         <h1 class="logo">Track'a Task</h1>
-        <p class="greet">Welcome, <input type="text" id="name" name="name" value="name" arial-label="enter your name" required></p>
+        <p class="greet">Welcome, <input type="text" id="name" name="name" value="name" arial-label="enter your name" required></p>        
     </header>
     <main>
+        <section id="open-tasks">
+            <p>1 task open</p>
+        </section>
         <section id="tasks">
             <h2 class="title">Tasks</h2>
             <div class="tasks-ui">
                 <p class="task-name">Task One</p>
             </div>
-            <button class="btn new-task">+ New Task</button>
-        </section>
+            <form>
+                <label for="new-task"></label>
+                <input type="text" name="new-task" id="new-task" placeholder="What you need to do?">
+                <button type="submit" class="btn add-task-btn">+ Add Task</button>
+            </form>
+        </section>  
     </main>
     <footer>
         <div class="copyright">
