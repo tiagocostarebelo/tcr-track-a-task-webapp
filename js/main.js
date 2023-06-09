@@ -5,6 +5,7 @@ let tasks = [];
 const nameInput = document.querySelector('#name');
 const taskInput = document.querySelector('#new-task');
 const addTaskBtn = document.querySelector('.add-task-btn');
+const count = document.querySelector('.counter');   
 
 //EVENT LISTENERS
 window.addEventListener('load', checkLocalStorage);
@@ -29,6 +30,7 @@ function addNewTask(event) {
     newTask = taskInput.value;
     tasks.push(newTask); 
     updateUi(newTask);
+    updateOpenTasks(tasks);
 }
 
 function updateUi(newTask) {
@@ -38,5 +40,10 @@ function updateUi(newTask) {
     newP.innerHTML = newTask;
     taskWrapper.appendChild(newP);
 }
+
+function updateOpenTasks(tasks) {   
+    count.innerHTML = tasks.length;     
+}
+
 
 
