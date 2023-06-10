@@ -34,11 +34,22 @@ function addNewTask(event) {
 }
 
 function updateUi(newTask) {
+    const newDiv = document.createElement("div");
     const newP = document.createElement("p");
+    const newBtn = document.createElement("button");
     const taskWrapper = document.querySelector('.tasks-ui');
+    
+    newDiv.classList.add('task-container');
     newP.classList.add('task-name');
-    newP.innerHTML = newTask;
-    taskWrapper.appendChild(newP);
+    newP.innerHTML = newTask;   
+    newBtn.setAttribute("type", "submit");
+    newBtn.innerHTML = "Delete";
+    newBtn.classList.add('btn');
+    newBtn.classList.add('delete-btn');
+    
+    newDiv.appendChild(newP);
+    newDiv.appendChild(newBtn);
+    taskWrapper.appendChild(newDiv);
 }
 
 function updateOpenTasks(tasks) {   
