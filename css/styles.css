@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500;700;900&display=swap');
+
+@import "./resets.css"; 
+
+:root {
+    --primary-color: rgb(174, 5, 186);
+    --secondary-color: lightblue;
+    --highlight-color: yellow;
+    --text-color: rgb(65, 65, 65);
+    --error-msg-txt: rgb(165, 11, 11);
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.5;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3em 1em;
+}
+
+input,
+input:focus, 
+input:active {
+    color: var(--text-color);
+    border: none;
+    outline: none;
+}
+
+header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+    padding: 0.5em 1em;
+    width: 100%;
+    max-width: 1200px;
+
+    background-color: var(--secondary-color);
+    border-radius: 20px 20px 0 0;
+}
+
+header .logo {
+    font-size:1.75em;
+}
+
+header .greet {
+    font-size: 1em;   
+}
+
+header .greet input[type="text"] {
+    background-color: transparent;
+    text-align: left;
+}
+
+header::after {
+    position: absolute;
+    content:'';
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    border: 5px solid var(--highlight-color);
+}
+
+header .error-message {
+    display: none;
+    font-size: 0.55em;
+    font-weight: 700;
+    color: var(--error-msg-txt);
+    text-align: left;
+    position: absolute;
+    bottom: 0;
+    left: 2em;
+}
+
+@media screen and (min-width:564px) {
+    header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1em 2em;
+    }
+
+    header .greet {
+        text-align: right;   
+    }
+
+    header .error-message {
+        position: absolute;
+        bottom: 1em;
+        right: 4em;
+        text-align: right;
+    }
+}
+
+main {
+    width: 100%;
+    padding: 2em 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));;
+    row-gap: 1em;
+    column-gap: 2em;
+    background-color: var(--secondary-color);
+}
+
+main #open-tasks{    
+    text-align: left;
+}
+
+main #tasks {
+    
+}
+
+
+
+
+
+
+
+
+
