@@ -1,6 +1,8 @@
 //VARIABLES
+let username;
 let newTask;
 let tasks = [];
+
 // SELECTORS
 const nameInput = document.querySelector('#name');
 const taskInput = document.querySelector('#new-task');
@@ -11,20 +13,38 @@ const tasksContainer = document.querySelector('.tasks-ui');
 
 //EVENT LISTENERS
 document.addEventListener('DOMContentLoaded', checkLocalStorage);
+nameInput.addEventListener('input', setUsername);
 nameInput.addEventListener('input', adjustInputWidth);
 addTaskBtn.addEventListener('click', addNewTask);
 window.addEventListener('click', deleteTask);
 window.addEventListener('click', editTask);
 
 
+
 // FUNCTIONS
-function checkLocalStorage () {
-    username = localStorage.getItem('username') || '';
-    tasks = JSON.parse(localStorage.getItem('tasks')) || [];    
+function setUsername() {
+    if(nameInput.value == '') {
+        nameInput.style.backgroundColor = "lightblue";
+    } else {
+        nameInput.style.backgroundColor = "transparent";
+        username = nameInput.value;
+        window.localStorage.setItem('username', `${username}`);
+        checkLocalStorage(username);
+    }
 }
 
-function adjustInputWidth() {
-    const name = nameInput.value;    
+function checkLocalStorage(username, tasks) {
+    username = localStorage.getItem('username');
+    // tasks = JSON.parse(localStorage.getItem('tasks')) || []; 
+    
+    if(username !== '') {
+        nameInput.value = username;
+        adjustInputWidth(username);
+    }
+}
+
+function adjustInputWidth(username) {
+    const name = username;    
     const width = name.length * 9;
     nameInput.style.width = width + "px";
 }
@@ -38,7 +58,7 @@ function addNewTask(event) {
     taskInput.value = '';
 }
 
-function updateUi(param) {
+function updateUi(newTask) {
     const fragment = document.createDocumentFragment();
     const newDiv = document.createElement("div");
     const newP = document.createElement("input");
@@ -49,13 +69,13 @@ function updateUi(param) {
     newDiv.setAttribute('class', 'task-container');
     newP.setAttribute('class', 'task-name');
     newP.setAttribute("readonly", true);
-    newP.setAttribute("value", `${param}`);   
+    newP.setAttribute("value", `${newTask}`);   
     newEditBtn.setAttribute("type", "submit");
     newEditBtn.innerText = "Edit";
     newEditBtn.setAttribute('class', 'btn');
     newEditBtn.setAttribute('class', 'edit-btn');
     newDeleteBtn.setAttribute("type", "submit");
-    newDeleteBtn.innerText = "Delete";
+    newDeleteBtn.innerHTML = "Delete";
     newDeleteBtn.setAttribute('class', 'btn');
     newDeleteBtn.setAttribute('class', 'delete-btn');
     
@@ -66,8 +86,8 @@ function updateUi(param) {
     tasksContainer.appendChild(fragment);
 }
 
-function updateOpenTasks(param) {   
-    count.innerHTML = param.length;     
+function updateOpenTasks(tasks) {   
+    count.innerHTML = tasks.length;     
 }
 
 function deleteTask(e) {
@@ -80,6 +100,30 @@ function deleteTask(e) {
         }
         clickedBtn.parentElement.remove();
         updateOpenTasks(tasks);
+    }
+    else {
+        return;
+    }
+}
+
+function editTask(e) {
+    const clickedBtn = e.target;
+    if(clickedBtn.classList.contains('edit-btn')) {
+        const inputField = clickedBtn.parentElement.firstChild;
+        const oldTaskName = inputField.value;
+        inputField.removeAttribute("readonly");
+        inputField.style.backgroundColor = "lightblue";
+        inputField.focus();
+        
+        inputField.addEventListener('blur', (e) => {
+            const newTaskName = inputField.value;
+            inputField.style.backgroundColor = "transparent";
+            inputField.setAttribute('readonly', true);
+            if(tasks.includes(oldTaskName)) {
+                const indexOfTasks = tasks.indexOf(oldTaskName);
+                tasks[indexOfTasks] = newTaskName;
+            }
+        })
     }
     else {
         return;
