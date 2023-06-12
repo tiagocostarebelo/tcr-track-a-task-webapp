@@ -70,13 +70,11 @@ function updateUi(newTask) {
     newP.setAttribute("readonly", true);
     newP.setAttribute("value", `${newTask}`);   
     newEditBtn.setAttribute("type", "submit");
-    newEditBtn.innerText = "Edit";
-    newEditBtn.setAttribute('class', 'btn');
-    newEditBtn.setAttribute('class', 'edit-btn');
+    // newEditBtn.innerHTML= "Edit";
+    newEditBtn.setAttribute('class', 'btn edit-btn');
     newDeleteBtn.setAttribute("type", "submit");
-    newDeleteBtn.innerHTML = "Delete";
-    newDeleteBtn.setAttribute('class', 'btn');
-    newDeleteBtn.setAttribute('class', 'delete-btn');
+    // newDeleteBtn.innerHTML = "Delete";
+    newDeleteBtn.setAttribute('class','btn delete-btn');
     
     newDiv.appendChild(newP);
     newDiv.appendChild(newEditBtn);
