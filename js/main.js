@@ -10,7 +10,6 @@ const addTaskBtn = document.querySelector('.add-task-btn');
 const count = document.querySelector('.counter');  
 const tasksContainer = document.querySelector('.tasks-ui'); 
 
-
 //EVENT LISTENERS
 document.addEventListener('DOMContentLoaded', checkLocalStorage);
 nameInput.addEventListener('input', setUsername);
