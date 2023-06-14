@@ -3,10 +3,14 @@
 @import "./resets.css"; 
 
 :root {
-    --primary-color: rgb(174, 5, 186);
-    --secondary-color: lightblue;
-    --highlight-color: yellow;
-    --text-color: rgb(65, 65, 65);
+    --primary-color: #3398db;
+    --secondary-color: #27ae60 ;
+    --accent-color: #f39c12 ;
+    --text-color: #333333;
+    --background-color: #ebebeb;
+    --app-background-color: #ffffff;
+    --border-color: #ffdd00;
+    --focus-input-color: #d8f2fb;
     --error-msg-txt: rgb(165, 11, 11);
     --add-task-color: rgb(10, 163, 10);
     --edit-button-color: rgb(255, 153, 0);
@@ -14,13 +18,14 @@
 }
 
 body {
+    background-color: var(--background-color);
     font-family: 'Raleway', sans-serif;
     line-height: 1.5;
     color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3em 1em;
+    padding: 1em;
 }
 
 input,
@@ -32,10 +37,13 @@ input:active {
     outline: none;
 }
 
+.title {
+    color: var(--primary-color);
+}
+
 .btn {
     outline: none;
     border: none;
-    padding: 0.35em;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -55,12 +63,12 @@ header {
     width: 100%;
     max-width: 1200px;
 
-    background-color: var(--secondary-color);
+    background-color: var(--app-background-color);
     border-radius: 20px 20px 0 0;
 }
 
 header .logo {
-    font-size:1.75em;
+    font-size:1.75em;    
 }
 
 header .greet {
@@ -68,8 +76,15 @@ header .greet {
 }
 
 header .greet input[type="text"] {
-    background-color: transparent;
-    text-align: left;
+    font-size: 1em;
+    width: 50px;
+}
+
+header .greet input[type="text"]:focus,
+header .greet input[type="text"]:active {
+    border-bottom: none;
+    background-color: var(--focus-input-color);
+    border-radius: 5px;
 }
 
 header::after {
@@ -78,7 +93,7 @@ header::after {
     bottom: -10px;
     left: 0;
     right: 0;
-    border: 5px solid var(--highlight-color);
+    border: 3px solid var(--border-color);
 }
 
 header .error-message {
@@ -92,6 +107,124 @@ header .error-message {
     left: 2em;
 }
 
+main {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 70vh;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));;
+    row-gap: 1em;
+    column-gap: 5em;
+    padding: 2em 1em;
+    background-color: var(--app-background-color);
+    border-radius: 0px 0px 20px 20px;
+}
+
+main #open-tasks{    
+    order: 2;
+    text-align: left;
+}
+
+main #open-tasks .title{    
+    margin: 0;
+}
+
+main #open-tasks .tasks-ui .task-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main #open-tasks .tasks-ui .task-container .task-name {
+    width: 80%;
+    margin: 0;
+    font-size: 14px;
+}
+
+main #open-tasks .tasks-ui .task-container .edit-btn {
+    background-color: var(--edit-button-color);
+    background-image: url("../imgs/edit-white.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.1em 1.1em;
+    width: 20px;
+    height: 20px;
+    align-self: flex-end;
+    margin-bottom: 1px;
+}
+
+main #open-tasks .tasks-ui .task-container .delete-btn {
+    background-color: var(--delete-button-color);
+    background-image: url("../imgs/delete-white.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 0.85em 0.85em;
+    width: 20px;
+    height: 20px;
+    margin-left: .25em;
+    align-self: flex-end;
+    margin-bottom: 1px;
+}
+
+main #open-tasks .tasks-ui .task-container .edit-btn:hover,
+main #open-tasks .tasks-ui .task-container .delete-btn:hover,
+main #tasks .add-task-btn:hover {
+    opacity: 0.8;
+}
+
+
+main #tasks {
+    order: 1;
+}
+
+main #tasks form {
+    position:relative;
+    display: flex;
+}
+
+main #tasks input[type="text"] {
+    margin-block: 0.75em;
+    width: 75%;
+    font-size: 0.75em;
+    padding: 0.5em 0.25em;
+    border-bottom: 1px solid var(--text-color);
+}
+
+main #tasks input[type="text"]:focus,
+main #tasks input[type="text"]:active {
+    border-bottom: none;
+    background-color: var(--focus-input-color);
+    border-radius: 5px;
+}
+
+main #tasks .add-task-btn {
+    position: absolute;
+    bottom: 12.5px;
+    right: 0;
+    font-size: 1.25em;
+    font-weight: 500;
+    color: var(--app-background-color);
+    line-height: 0;
+    padding: 0.55em 0.35em;
+    background-color: var(--secondary-color);
+} 
+
+footer .copyright .copy {
+    /* margin-top: 1em; */
+    text-align: center;
+    font-size: 12px;
+}
+
+@media screen and (min-width:330px) {
+    main #open-tasks .tasks-ui .task-container {
+        justify-content: flex-end;
+    }
+    
+    main #open-tasks .tasks-ui .task-container .task-name {
+        flex: 1;
+    }
+}
 @media screen and (min-width:564px) {
     header {
         flex-direction: row;
@@ -110,71 +243,25 @@ header .error-message {
         right: 4em;
         text-align: right;
     }
+
+    main {
+        padding: 1em 2em;
+    }
+
+    main #open-tasks .tasks-ui .task-container .task-name {
+        font-size: 16px;
+    }
+
+    main #tasks input[type="text"] {
+        width: 95%;
+        font-size: 1em;
+    }
+
+    main #tasks .add-task-btn {
+        position: absolute;
+        bottom: 20.5px;
+    }
 }
-
-main {
-    width: 100%;
-    max-width: 1200px;
-    min-height: 70vh;
-    height: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));;
-    row-gap: 1em;
-    column-gap: 2em;
-    padding: 2em 1em;
-    background-color: var(--secondary-color);
-    border-radius: 0px 0px 20px 20px;
-}
-
-main #open-tasks{    
-    order: 2;
-    text-align: left;
-}
-
-main #open-tasks .tasks-ui .task-container {
-    display: flex;
-    align-items: center;
-}
-
-main #open-tasks .tasks-ui .task-container .task-name {
-    width: 70%;
-}
-
-main #open-tasks .tasks-ui .task-container .edit-btn {
-    background-color: var(--edit-button-color);
-    background-image: url("../imgs/edit-white.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1.1em 1.1em;
-    width: 20px;
-    height: 20px;
-}
-
-main #open-tasks .tasks-ui .task-container .delete-btn {
-    background-color: var(--delete-button-color);
-    background-image: url("../imgs/delete-white.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 0.85em 0.85em;
-    width: 20px;
-    height: 20px;
-    margin-left: .25em;
-}
-
-main #tasks {
-    order: 1;
-}
-
-main #tasks input[type="text"] {
-    border-bottom: 1px solid var(--text-color);
-    width: 70%;
-    margin-block: 0.75em;
-}
-
-main #tasks .add-task-btn {
-    background-color: var(--add-task-color);
-} 
-
 
 
 
