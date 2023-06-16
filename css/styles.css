@@ -231,6 +231,7 @@ footer .copyright .copy {
         align-items: center;
         justify-content: space-between;
         padding: 1em 2em;
+        margin-top: 2.5em;
     }
 
     header .greet {
@@ -245,7 +246,7 @@ footer .copyright .copy {
     }
 
     main {
-        padding: 1em 2em;
+        padding: 2em 2em;
     }
 
     main #open-tasks .tasks-ui .task-container .task-name {

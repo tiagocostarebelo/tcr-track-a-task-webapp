@@ -25,7 +25,7 @@ function setUsername() {
     } else {
         nameInput.style.backgroundColor = "transparent";
         username = nameInput.value;
-        window.localStorage.setItem('username', `${username}`);
+        localStorage.setItem('username', `${username}`);
         checkLocalStorage(username);
     }
 }
@@ -49,7 +49,7 @@ function adjustInputWidth(username) {
 function addNewTask(event) {
     event.preventDefault();
     newTask = taskInput.value;
-    window.localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
     tasks.push(newTask); 
     updateUi(newTask);
     updateOpenTasks(tasks);
