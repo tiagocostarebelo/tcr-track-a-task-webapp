@@ -245,8 +245,7 @@ footer .copyright .copy {
         position: absolute;
         font-size: 0.85em;
         bottom: .35em;
-        right: 2.5em;
-        text-align: right;
+        left: 2.5em;
     }
 
     main {

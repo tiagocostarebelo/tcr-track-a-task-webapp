@@ -9,16 +9,17 @@ window.addEventListener('DOMContentLoaded', checkLocalStorage);
 nameInput.addEventListener('blur', inputValidation);
 
 // FUNCTIONS
-function checkLocalStorage() {
-    nameInput.value = localStorage.getItem('username', username);
+function checkLocalStorage(username) {
+    nameInput.value = localStorage.getItem('username');
+    adjustInputWidth(nameInput.value); 
 }
 
 function setUsername(username) { 
     nameInput.style.backgroundColor = "transparent";
     nameInput.style.color = "inherit";
-    errorMessage.innerHTML = '';
-    adjustInputWidth(username); 
+    errorMessage.innerHTML = '';    
     localStorage.setItem('username', username); 
+    checkLocalStorage(username);
 }
 
 
