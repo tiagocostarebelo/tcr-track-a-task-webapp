@@ -3,14 +3,14 @@
 @import "./resets.css"; 
 
 :root {
-    --primary-color: #3398db;
-    --secondary-color: #27ae60 ;
-    --accent-color: #f39c12 ;
-    --text-color: #333333;
-    --background-color: #ebebeb;
-    --app-background-color: #ffffff;
-    --border-color: #ffdd00;
-    --focus-input-color: #d8f2fb;
+    --primary-color: hsl(204, 70%, 53%);
+    --secondary-color: hsl(145, 63%, 42%) ;
+    --accent-color: hsl(37, 90%, 51%) ;
+    --text-color: hsl(0, 0%, 20%);
+    --background-color: hsl(0, 0%, 92%);
+    --app-background-color: hsl(0, 0%, 100%);
+    --border-color: hsl(52, 100%, 50%);
+    --focus-input-color: hsl(195, 81%, 92%);
     --error-msg-txt: rgb(165, 11, 11);
     --add-task-color: rgb(10, 163, 10);
     --edit-button-color: rgb(255, 153, 0);
@@ -25,6 +25,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 1em;
 }
 
@@ -90,21 +91,21 @@ header .greet input[type="text"]:active {
 header::after {
     position: absolute;
     content:'';
-    bottom: -10px;
+    bottom: -15px;
     left: 0;
     right: 0;
     border: 3px solid var(--border-color);
 }
 
 header .error-message {
-    display: none;
-    font-size: 0.55em;
+    display: block;
+    font-size: 0.75em;
     font-weight: 700;
     color: var(--error-msg-txt);
     text-align: left;
     position: absolute;
-    bottom: 0;
-    left: 2em;
+    bottom: -0.75em;
+    left: auto;
 }
 
 main {
@@ -211,7 +212,6 @@ main #tasks .add-task-btn {
 } 
 
 footer .copyright .copy {
-    /* margin-top: 1em; */
     text-align: center;
     font-size: 12px;
 }
@@ -231,7 +231,10 @@ footer .copyright .copy {
         align-items: center;
         justify-content: space-between;
         padding: 1em 2em;
-        margin-top: 2.5em;
+    }
+
+    header .logo {
+        order: 1;  
     }
 
     header .greet {
@@ -240,8 +243,9 @@ footer .copyright .copy {
 
     header .error-message {
         position: absolute;
-        bottom: 1em;
-        right: 4em;
+        font-size: 0.85em;
+        bottom: .35em;
+        right: 2.5em;
         text-align: right;
     }
 

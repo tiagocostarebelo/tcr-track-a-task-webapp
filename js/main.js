@@ -1,134 +1,42 @@
-//VARIABLES
 let username;
-let newTask;
-let tasks = [];
 
-// SELECTORS
-const nameInput = document.querySelector('#name');
-const taskInput = document.querySelector('#new-task');
-const addTaskBtn = document.querySelector('.add-task-btn');
-const count = document.querySelector('.counter');  
-const tasksContainer = document.querySelector('.tasks-ui'); 
+//SELECTORS
+let nameInput = document.querySelector('#name');
+let errorMessage = document.querySelector('.error-message');
 
 //EVENT LISTENERS
-document.addEventListener('DOMContentLoaded', checkLocalStorage);
-nameInput.addEventListener('input', setUsername);
-nameInput.addEventListener('input', adjustInputWidth);
-addTaskBtn.addEventListener('click', addNewTask);
-window.addEventListener('click', deleteTask);
-window.addEventListener('click', editTask);
+window.addEventListener('DOMContentLoaded', checkLocalStorage);
+nameInput.addEventListener('blur', inputValidation);
 
 // FUNCTIONS
-function setUsername() {
-    if(nameInput.value == '') {
-        nameInput.style.backgroundColor = "#d8f2fb";
+function checkLocalStorage() {
+    nameInput.value = localStorage.getItem('username', username);
+}
+
+function setUsername(username) { 
+    nameInput.style.backgroundColor = "transparent";
+    nameInput.style.color = "inherit";
+    errorMessage.innerHTML = '';
+    adjustInputWidth(username); 
+    localStorage.setItem('username', username); 
+}
+
+
+function inputValidation() {
+    username = nameInput.value;
+    if (nameInput.value == 'name' || nameInput.value == '') {
+        errorMessage.innerHTML = 'Please enter your name';
+        nameInput.style.backgroundColor = "#ff9900";
+        nameInput.style.color = "white";
+        nameInput.focus();   
+        return false;
     } else {
-        nameInput.style.backgroundColor = "transparent";
-        username = nameInput.value;
-        localStorage.setItem('username', `${username}`);
-        checkLocalStorage(username);
+        setUsername(username);
+        return true;
     }
 }
 
-function checkLocalStorage(username, tasks) {
-    username = localStorage.getItem('username');
-    tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-    
-    if(username !== '') {
-        nameInput.value = username;
-        adjustInputWidth(username);
-    }
-}
-
-function adjustInputWidth(username) {
-    const name = username;    
-    const width = name.length * 9;
+function adjustInputWidth(username) {   
+    const width = username.length * 9;
     nameInput.style.width = width + "px";
 }
-
-function addNewTask(event) {
-    event.preventDefault();
-    newTask = taskInput.value;
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    tasks.push(newTask); 
-    updateUi(newTask);
-    updateOpenTasks(tasks);
-    taskInput.value = '';
-}
-
-function editTask(e) {
-    const clickedBtn = e.target;
-    if(clickedBtn.classList.contains('edit-btn')) {
-        const inputField = clickedBtn.parentElement.firstChild;
-        const oldTaskName = inputField.value;
-        inputField.removeAttribute("readonly");
-        inputField.style.backgroundColor = "#d8f2fb";
-        inputField.focus();
-        
-        inputField.addEventListener('blur', (e) => {
-            const newTaskName = inputField.value;
-            inputField.setAttribute('readonly', true);
-            inputField.style.backgroundColor = "transparent";
-            if(tasks.includes(oldTaskName)) {
-                const indexOfTasks = tasks.indexOf(oldTaskName);
-                tasks[indexOfTasks] = newTaskName;
-            }
-        })
-    }
-    else {
-        return;
-    }
-}
-
-function deleteTask(e) {
-    const clickedBtn = e.target;
-    if(clickedBtn.classList.contains('delete-btn')) {
-        const taskName = clickedBtn.parentElement.firstChild.value;
-        if (tasks.includes(taskName)) {
-            const indexOfTasks = tasks.indexOf(taskName);
-            tasks.splice(indexOfTasks, 1);
-        }
-        clickedBtn.parentElement.remove();
-        updateOpenTasks(tasks);
-    }
-    else {
-        return;
-    }
-}
-
-function updateOpenTasks(tasks) {   
-    count.innerHTML = tasks.length;     
-}
-
-function updateUi(newTask) {
-    const fragment = document.createDocumentFragment();
-    const newDiv = document.createElement("div");
-    const newP = document.createElement("input");
-    const newEditBtn = document.createElement("button");
-    const newDeleteBtn = document.createElement("button");
-    
-    
-    newDiv.setAttribute('class', 'task-container');
-    newP.setAttribute('class', 'task-name');
-    newP.setAttribute("readonly", true);
-    newP.setAttribute("value", `${newTask}`);   
-    newEditBtn.setAttribute("type", "submit");
-    // newEditBtn.innerHTML= "Edit";
-    newEditBtn.setAttribute('class', 'btn edit-btn');
-    newDeleteBtn.setAttribute("type", "submit");
-    // newDeleteBtn.innerHTML = "Delete";
-    newDeleteBtn.setAttribute('class','btn delete-btn');
-    
-    newDiv.appendChild(newP);
-    newDiv.appendChild(newEditBtn);
-    newDiv.appendChild(newDeleteBtn);
-    fragment.appendChild(newDiv);
-    tasksContainer.appendChild(fragment);
-}
-
-
-
-
-
-
-
