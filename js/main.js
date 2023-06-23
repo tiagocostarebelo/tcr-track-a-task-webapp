@@ -16,9 +16,11 @@ nameInput.addEventListener('blur', inputValidation);
 taskForm.addEventListener('submit', inputTaskValidation);
 
 // FUNCTIONS
-function checkLocalStorage(username) {
+function checkLocalStorage() {
     nameInput.value = localStorage.getItem('username');
-    adjustInputWidth(nameInput.value); 
+    adjustInputWidth(nameInput.value);
+    tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    tasks.forEach(task => updateUi(task));
 }
 
 function setUsername(username) { 
@@ -28,11 +30,10 @@ function setUsername(username) {
     checkLocalStorage(username);
 }
 
-function addNewTask(newTask) {
-    console.log(newTask);
-    taskInput.style.border = "inherit";
-    taskErrorMessage.innerHTML = '';
-    
+function addNewTask(newTask) {    
+    tasks.push(newTask);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    updateUi(newTask);
 }
 
 function inputValidation() {
@@ -50,7 +51,6 @@ function inputValidation() {
 
 function inputTaskValidation(event) {
     event.preventDefault();
-
     newTask = taskInput.value;
     if (taskInput.value == '') {
         taskErrorMessage.innerHTML = 'Please enter a task';
@@ -70,4 +70,28 @@ function adjustInputWidth(username) {
 function clearError() {
     taskErrorMessage.innerHTML = '';
     taskInput.style.border = "transparent";
+}
+
+function updateUi(parameter) {
+    const fragment = document.createDocumentFragment();
+    const newDiv = document.createElement("div");
+    const newP = document.createElement("input");
+    const newEditBtn = document.createElement("button");
+    const newDeleteBtn = document.createElement("button");
+    newDiv.setAttribute('class', 'task-container');
+    newP.setAttribute('class', 'task-name');
+    newP.setAttribute("readonly", true);
+    newP.setAttribute("value", parameter);   
+    newEditBtn.setAttribute("type", "submit");
+    // newEditBtn.innerHTML= "Edit";
+    newEditBtn.setAttribute('class', 'btn edit-btn');
+    newDeleteBtn.setAttribute("type", "submit");
+    // newDeleteBtn.innerHTML = "Delete";
+    newDeleteBtn.setAttribute('class','btn delete-btn');
+    
+    newDiv.appendChild(newP);
+    newDiv.appendChild(newEditBtn);
+    newDiv.appendChild(newDeleteBtn);
+    fragment.appendChild(newDiv);
+    tasksContainer.appendChild(fragment);    
 }
