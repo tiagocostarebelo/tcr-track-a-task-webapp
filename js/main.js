@@ -22,8 +22,7 @@ function checkLocalStorage(username) {
 }
 
 function setUsername(username) { 
-    nameInput.style.backgroundColor = "transparent";
-    nameInput.style.color = "inherit";
+    nameInput.style.border = "inherit";
     errorMessage.innerHTML = '';    
     localStorage.setItem('username', username); 
     checkLocalStorage(username);
@@ -31,8 +30,7 @@ function setUsername(username) {
 
 function addNewTask(newTask) {
     console.log(newTask);
-    taskInput.style.backgroundColor = "transparent";
-    taskInput.style.color = "inherit";
+    taskInput.style.border = "inherit";
     taskErrorMessage.innerHTML = '';
     
 }
@@ -41,8 +39,7 @@ function inputValidation() {
     username = nameInput.value;
     if (nameInput.value == 'name' || nameInput.value == '') {
         errorMessage.innerHTML = 'Please enter your name';
-        nameInput.style.backgroundColor = "#ff9900";
-        nameInput.style.color = "white";
+        nameInput.style.border = "1px solid #ff9900";
         nameInput.focus();   
         return false;
     } else {
@@ -57,8 +54,7 @@ function inputTaskValidation(event) {
     newTask = taskInput.value;
     if (taskInput.value == '') {
         taskErrorMessage.innerHTML = 'Please enter a task';
-        taskInput.style.backgroundColor = "#ff9900";
-        taskInput.style.color = "white";
+        taskInput.style.border = "1px solid #ff9900";
         taskInput.addEventListener('focus', clearError);   
         return false;
     }
@@ -73,6 +69,5 @@ function adjustInputWidth(username) {
 
 function clearError() {
     taskErrorMessage.innerHTML = '';
-    taskInput.style.backgroundColor = "transparent";
-    taskInput.style.color = "inherit";
+    taskInput.style.border = "transparent";
 }
