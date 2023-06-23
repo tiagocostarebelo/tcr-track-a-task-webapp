@@ -15,6 +15,7 @@ window.addEventListener('DOMContentLoaded', checkLocalStorage);
 nameInput.addEventListener('blur', inputValidation);
 taskForm.addEventListener('submit', inputTaskValidation);
 window.addEventListener('click', editTask);
+window.addEventListener('click', deleteTask);
 
 // FUNCTIONS
 function checkLocalStorage() {
@@ -58,6 +59,24 @@ function editTask(event) {
                 localStorage.setItem('tasks', JSON.stringify(tasks));
             }
         })
+    }
+    else {
+        return;
+    }
+}
+
+function deleteTask(event) {
+    const clickedBtn = event.target;
+    if(clickedBtn.classList.contains('delete-btn')) {
+        const taskName = clickedBtn.parentElement.firstChild.value;
+        if (tasks.includes(taskName)) {
+            const indexOfTasks = tasks.indexOf(taskName);
+            tasks.splice(indexOfTasks, 1);
+            localStorage.removeItem(taskName);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+        clickedBtn.parentElement.remove();
+        // updateOpenTasks(tasks);
     }
     else {
         return;
