@@ -14,6 +14,7 @@ const taskErrorMessage = document.querySelector('.task-error-message');
 window.addEventListener('DOMContentLoaded', checkLocalStorage);
 nameInput.addEventListener('blur', inputValidation);
 taskForm.addEventListener('submit', inputTaskValidation);
+window.addEventListener('click', editTask);
 
 // FUNCTIONS
 function checkLocalStorage() {
@@ -34,6 +35,33 @@ function addNewTask(newTask) {
     tasks.push(newTask);
     localStorage.setItem("tasks", JSON.stringify(tasks));
     updateUi(newTask);
+}
+
+function editTask(event) {
+    const clickedBtn = event.target;
+    if(clickedBtn.classList.contains('edit-btn')) {
+        const inputField = clickedBtn.parentElement.firstChild;
+        const oldTaskName = inputField.value;
+        console.log(oldTaskName);
+        inputField.removeAttribute("readonly");
+        inputField.style.backgroundColor = "#d8f2fb";
+        inputField.focus();
+        
+        inputField.addEventListener('blur', () => {
+            const newTaskName = inputField.value;
+            console.log(newTaskName);
+            inputField.setAttribute('readonly', true);
+            inputField.style.backgroundColor = "transparent";
+            if(tasks.includes(oldTaskName)) {
+                const indexOfTasks = tasks.indexOf(oldTaskName);
+                tasks[indexOfTasks] = newTaskName;
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+        })
+    }
+    else {
+        return;
+    }
 }
 
 function inputValidation() {
