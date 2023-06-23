@@ -9,9 +9,15 @@
 </head>
 <body>
     <header>
-        <h1 class="logo">Track'a Task</h1>
-        <p class="greet">Welcome, <input type="text" id="name" name="name" value="name" pattern="[A-Za-z]" arial-label="enter your name" required></p>        
-        <div class="error-message">Username field not properly field.</div>
+        <h1 class="logo">
+            <a href="#">
+            Track'a Task
+            </a>            
+        </h1>
+        <p class="greet">Welcome, 
+            <input type="text" id="name" name="name" value="name" pattern="[A-Za-z]" aria-label="user name" required>
+        </p>        
+        <div class="error-message"></div>
     </header>
     <main>
         <section id="open-tasks">
@@ -22,10 +28,10 @@
         </section>
         <section id="tasks">
             <h2 class="title">Enter your task</h2>
-            <form>
+            <form id="task-form">
                 <label for="new-task"></label>
                 <input type="text" name="new-task" id="new-task" placeholder="What you need to do?">
-                <div class="error-message"></div>
+                <div class="task-error-message"></div>
                 <button type="submit" class="btn add-task-btn">&#43;</button>
             </form>
         </section>  
