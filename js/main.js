@@ -23,6 +23,7 @@ function checkLocalStorage() {
     adjustInputWidth(nameInput.value);
     tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
     tasks.forEach(task => updateUi(task));
+    updateOpenTasks(tasks);
 }
 
 function setUsername(username) { 
@@ -36,6 +37,7 @@ function addNewTask(newTask) {
     tasks.push(newTask);
     localStorage.setItem("tasks", JSON.stringify(tasks));
     updateUi(newTask);
+    updateOpenTasks(tasks);
 }
 
 function editTask(event) {
@@ -76,11 +78,15 @@ function deleteTask(event) {
             localStorage.setItem('tasks', JSON.stringify(tasks));
         }
         clickedBtn.parentElement.remove();
-        // updateOpenTasks(tasks);
+        updateOpenTasks(tasks);
     }
     else {
         return;
     }
+}
+
+function updateOpenTasks(tasks) {   
+    count.innerHTML = tasks.length;     
 }
 
 function inputValidation() {
