@@ -211,6 +211,17 @@ main #tasks .add-task-btn {
     background-color: var(--secondary-color);
 } 
 
+main #tasks form .task-error-message {
+    display: block;
+    font-size: 0.75em;
+    font-weight: 700;
+    color: var(--error-msg-txt);
+    text-align: left;
+    position: absolute;
+    bottom: -0.75em;
+    left: auto;
+}
+
 footer .copyright .copy {
     text-align: center;
     font-size: 12px;
